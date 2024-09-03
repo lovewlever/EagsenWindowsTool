@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>ic_def_cover.png</file>
+    </qresource>
+</RCC>
