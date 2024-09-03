@@ -12,6 +12,7 @@
 #include <QQmlContext>
 #include <QIcon>
 
+
 // E:\Qt\6.7.2\mingw_64\bin\windeployqt6.exe --release EagsenWindowsToolApp.exe --qmldir E:\Documents\QtProject\EagsenWindowsTool-Release\qml
 int main(int argc, char *argv[])
 {
