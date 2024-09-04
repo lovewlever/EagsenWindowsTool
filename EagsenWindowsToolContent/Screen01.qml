@@ -30,9 +30,9 @@ Rectangle {
     FileDialog {
         id: jksSelectDialog
         title: "Select APK"
-        nameFilters: ["Jks File (*.jks)", "KeyStore File (*.keystore)"]
+        nameFilters: ["JKS File (*.jks)", "KeyStore File (*.keystore)"]
         onAccepted: {
-            vc.onFileDialogAccepted(apkSelectDialog.selectedFile)
+            vc.onSignatureDialogAccepted(jksSelectDialog.selectedFile)
         }
     }
 
@@ -60,6 +60,8 @@ Rectangle {
                 color: "#00000000"
             }
             Text {
+                id: textABC
+                objectName: "textABC"
                 width: implicitWidth
                 height: implicitHeight
                 color: "#B7B7B7"
@@ -74,8 +76,8 @@ Rectangle {
         Row {
             id: row
             Label {
-                width: 100
-                text: "请选择APK:"
+                width: 120
+                text: "APK File:"
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
             }
@@ -86,14 +88,20 @@ Rectangle {
             }
 
             Button {
-                id: button
+                width: 200
+                height: 32
+                id: btnSelectApk
+                objectName: "btnSelectApk"
                 background: Rectangle {
                     color: "blue"
                     radius: 6
                 }
 
                 contentItem: Text {
-                    text: "click here selecte apk"
+                    objectName: "tvSelectApk"
+                    text: "Click here select apk"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                     color: "white"
                 }
 
@@ -106,18 +114,62 @@ Rectangle {
         }
 
         Row {
+            id: row3
+            spacing: 12
+            Label {
+                width: 120
+                text: "About Us"
+                anchors.verticalCenter: parent.verticalCenter
+                color: "white"
+            }
+
+            Button {
+                width: 200
+                height: 32
+                anchors.verticalCenter: parent.verticalCenter
+                background: Rectangle {
+                    color: "blue"
+                    radius: 6
+                }
+                contentItem: Text {
+                    text: qsTr("Click here select picture")
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    color: "white"
+                }
+            }
+
+            TextField {
+                id: textField1
+                width: 412
+                height: 35
+                verticalAlignment: Text.AlignVCenter
+                background: Rectangle {
+                    border.color: "blue"
+                    border.width: 2
+                    radius: 8
+                    color: "#232323"
+                }
+                placeholderTextColor: "#999999"
+                placeholderText: "Url"
+            }
+        }
+
+        Row {
             id: row2
             spacing: 12
 
             Label {
-                width: 100
-                text: "请选择签名文件:"
+                width: 120
+                text: "Signature File:"
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
             }
 
             Button {
-                id: button1
+                width: 200
+                height: 32
+                id: btnSelectSignatureFile
                 anchors.verticalCenter: parent.verticalCenter
                 background: Rectangle {
                     color: "blue"
@@ -125,7 +177,10 @@ Rectangle {
                 }
 
                 contentItem: Text {
-                    text: "click here selecte signature file"
+                    objectName: "tvSelectSignatureFile"
+                    text: "Click here select signature file"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                     color: "white"
                 }
 
@@ -137,6 +192,25 @@ Rectangle {
                     cursorShape: Qt.PointingHandCursor
                     onClicked: jksSelectDialog.open()
                 }
+            }
+
+            TextField {
+                id: textField4
+                height: 35
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+                width: 200
+                background: Rectangle {
+                    border.color: "blue"
+                    border.width: 2
+                    radius: 8
+                    color: "#232323"
+                }
+                color: "white"
+                anchors.verticalCenter: parent.verticalCenter
+                placeholderText: "KeyAlias"
+                placeholderTextColor: "#999999"
+                onTextChanged: vc.onKeyAliasTextChanged(textField4.text)
             }
 
             TextField {
@@ -154,16 +228,17 @@ Rectangle {
                 echoMode: TextInput.Password
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
-                placeholderText: "please input password"
+                placeholderText: "Password"
                 placeholderTextColor: "#999999"
+                onTextChanged: vc.onPasswordTextChanged(textField3.text)
             }
         }
 
         Row {
             spacing: 12
             Label {
-                width: 100
-                text: "渠道码:"
+                width: 120
+                text: "Channel Code:"
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
             }
@@ -181,14 +256,16 @@ Rectangle {
                     color: "#232323"
                 }
                 color: "white"
-                placeholderText: "please input channel invite"
+                placeholderText: "Channel Invite"
                 placeholderTextColor: "#999999"
+                onTextChanged: vc.onChannelInviteTextChanged(textField.text)
             }
 
             Label {
-                text: "留空不处理"
+                text: "Empty not processed"
                 anchors.verticalCenter: parent.verticalCenter
-                color: "red"
+                color: "green"
+                visible: textField.text.trim() === ""
             }
         }
 
@@ -197,8 +274,8 @@ Rectangle {
             spacing: 12
 
             Label {
-                width: 100
-                text: "渠道经理:"
+                width: 120
+                text: "Channel Manager:"
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
             }
@@ -217,14 +294,16 @@ Rectangle {
                     color: "#232323"
                 }
                 color: "white"
-                placeholderText: "please input channel manager"
+                placeholderText: "Channel Manager"
                 placeholderTextColor: "#999999"
+                onTextChanged: vc.onChannelManagerTextChanged(textField2.text)
             }
 
             Label {
-                text: "留空不处理"
+                text: "Empty not processed"
                 anchors.verticalCenter: parent.verticalCenter
-                color: "red"
+                color: "green"
+                visible: textField2.text.trim() === ""
             }
         }
 

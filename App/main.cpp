@@ -29,17 +29,17 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
-    ViewClass vc;
-
-    QQmlContext* ctx = engine.rootContext();
-    ctx->setContextProperty("vc", &vc);
-
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
     engine.load(url);
 
     if (engine.rootObjects().isEmpty())
         return -1;
+
+    const auto obj = engine.rootObjects().value(0);
+    ViewClass vc{obj};
+    QQmlContext* ctx = engine.rootContext();
+    ctx->setContextProperty("vc", &vc);
 
     return app.exec();
 }

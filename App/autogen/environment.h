@@ -6,8 +6,8 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(EagsenWindowsToolContentPlugin)
 Q_IMPORT_QML_PLUGIN(EagsenWindowsToolPlugin)
+Q_IMPORT_QML_PLUGIN(EagsenWindowsToolContentPlugin)
 
 const char mainQmlFile[] = "qrc:/qt/qml/EagsenWindowsToolContent/App.qml";
 

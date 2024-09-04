@@ -8,6 +8,7 @@
 #include <QProcess>
 #include <QFile>
 #include <QFile>
+#include <QFileInfo>
 
 class ViewClass : public QObject
 {
@@ -15,6 +16,9 @@ class ViewClass : public QObject
 
 private:
     QString apkFilePath = nullptr;
+    QString signatureFilePath = nullptr;
+    QString signatureKeyAlias = nullptr;
+    QString signaturePwd = nullptr;
     QString aboutImagePath = nullptr;
     QString aboutClickUrl = nullptr;
     QString channelInvite = nullptr;
@@ -28,9 +32,12 @@ signals:
 public slots:
     void btnClicked();
     void onFileDialogAccepted(const QString& filePath);
+    void onSignatureDialogAccepted(const QString& filePath);
+    void onKeyAliasTextChanged(const QString& keyAlias);
+    void onPasswordTextChanged(const QString& filePath);
+
+    void onChannelInviteTextChanged(const QString& invite);
+    void onChannelManagerTextChanged(const QString& manager);
 };
-
-
-
 
 #endif // VIEWCLASS_H
