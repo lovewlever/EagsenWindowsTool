@@ -1,5 +1,5 @@
-
-
+// Copyright (C) 2021 The Qt Company Ltd.
+// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
 /*
 This is a UI file (.ui.qml) that is intended to be edited in Qt Design Studio only.
 It is supposed to be strictly declarative and only uses a subset of QML. If you edit
@@ -10,23 +10,44 @@ import QtQuick 6.7
 import QtQuick.Controls 6.7
 import EagsenWindowsTool
 import QtQuick.Dialogs
+import QtQuick.Layouts
 
 Rectangle {
     id: rectangle
-    width: maximumWidth
-    height: maximumHeight
-
+    width: 800
+    height: 600
     color: "#ed000000"
 
-    Column {
+    FileDialog {
+        id: apkSelectDialog
+        title: "Select APK"
+        nameFilters: "Apk File (*.apk)"
+        onAccepted: {
+            vc.onFileDialogAccepted(apkSelectDialog.selectedFile)
+        }
+    }
+
+    FileDialog {
+        id: jksSelectDialog
+        title: "Select APK"
+        nameFilters: ["Jks File (*.jks)", "KeyStore File (*.keystore)"]
+        onAccepted: {
+            vc.onFileDialogAccepted(apkSelectDialog.selectedFile)
+        }
+    }
+
+    ColumnLayout {
         id: column
-        padding: 12
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.leftMargin: 12
+        anchors.rightMargin: 12
+        anchors.topMargin: 12
+        spacing: 20
 
         Row {
             id: row1
-            width: implicitWidth
-            height: implicitHeight
             Image {
                 id: name
                 source: "images/ic_def_cover.png"
@@ -50,26 +71,8 @@ Rectangle {
 
         }
 
-        Rectangle {
-            height: 20
-            width: 1
-            color: "#00000000"
-        }
-
-        FileDialog {
-            id: apkSelectDialog
-            title: "Select APK"
-            nameFilters: "Text Files (*.apk)"
-            onAccepted: {
-                vc.onFileDialogAccepted(apkSelectDialog.selectedFile)
-            }
-        }
-
         Row {
             id: row
-            width: implicitWidth
-            height: implicitHeight
-
             Label {
                 width: 100
                 text: "请选择APK:"
@@ -102,26 +105,15 @@ Rectangle {
             }
         }
 
-        Rectangle {
-            height: 20
-            width: 1
-            color: "#00000000"
-        }
         Row {
             id: row2
-            width: implicitWidth
-            height: implicitHeight
+            spacing: 12
 
             Label {
                 width: 100
                 text: "请选择签名文件:"
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
-            }
-            Rectangle {
-                width: 12
-                height: 10
-                color: "#00000000"
             }
 
             Button {
@@ -143,14 +135,8 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.top: parent.top
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: {}
+                    onClicked: jksSelectDialog.open()
                 }
-            }
-
-            Rectangle {
-                width: 12
-                height: 10
-                color: "#00000000"
             }
 
             TextField {
@@ -167,30 +153,19 @@ Rectangle {
                 }
                 echoMode: TextInput.Password
                 color: "white"
+                anchors.verticalCenter: parent.verticalCenter
                 placeholderText: "please input password"
                 placeholderTextColor: "#999999"
             }
         }
 
-        Rectangle {
-            height: 20
-            width: 1
-            color: "#00000000"
-        }
         Row {
-            width: implicitWidth
-            height: implicitHeight
-
+            spacing: 12
             Label {
                 width: 100
                 text: "渠道码:"
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
-            }
-            Rectangle {
-                width: 12
-                height: 10
-                color: "#00000000"
             }
 
             TextField {
@@ -209,16 +184,17 @@ Rectangle {
                 placeholderText: "please input channel invite"
                 placeholderTextColor: "#999999"
             }
+
+            Label {
+                text: "留空不处理"
+                anchors.verticalCenter: parent.verticalCenter
+                color: "red"
+            }
         }
 
-        Rectangle {
-            height: 20
-            width: 1
-            color: "#00000000"
-        }
         Row {
-            width: implicitWidth
-            height: implicitHeight
+            id: row11
+            spacing: 12
 
             Label {
                 width: 100
@@ -226,11 +202,7 @@ Rectangle {
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
             }
-            Rectangle {
-                width: 12
-                height: 10
-                color: "#00000000"
-            }
+
 
             TextField {
                 id: textField2
@@ -247,6 +219,37 @@ Rectangle {
                 color: "white"
                 placeholderText: "please input channel manager"
                 placeholderTextColor: "#999999"
+            }
+
+            Label {
+                text: "留空不处理"
+                anchors.verticalCenter: parent.verticalCenter
+                color: "red"
+            }
+        }
+
+
+        Button {
+            id: button2
+            rightPadding: 24
+            leftPadding: 24
+            contentItem: Text {
+                text: qsTr("Commit")
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                font.pointSize: 18
+
+            }
+            background: Rectangle {
+                color: "green"
+                radius: 6
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {}
             }
         }
 
