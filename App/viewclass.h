@@ -20,14 +20,14 @@ class ViewClass : public QObject
     Q_OBJECT
 
 private:
-    QString apkFilePath = nullptr;
-    QString signatureFilePath = nullptr;
-    QString signatureKeyAlias = nullptr;
-    QString signaturePwd = nullptr;
-    QString aboutImagePath = nullptr;
-    QString aboutClickUrl = nullptr;
-    QString channelInvite = nullptr;
-    QString channelManager = nullptr;
+    QString apkFilePath{""};
+    QString signatureFilePath{""};
+    QString signatureKeyAlias{""};
+    QString signaturePwd{""};
+    QString aboutImagePath{""};
+    QString aboutClickUrl{""};
+    QString channelInvite{""};
+    QString channelManager{""};
 
 
     ApkUnpackAndPackPkg* apktool = nullptr;
