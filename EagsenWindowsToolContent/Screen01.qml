@@ -386,9 +386,9 @@ Rectangle {
 
         Text {
             objectName: "processDoneText"
-            text: qsTr("text")
+            text: ""
             color: "green"
-            font.pointSize: 14
+            font.pointSize: 16
         }
     }
 
