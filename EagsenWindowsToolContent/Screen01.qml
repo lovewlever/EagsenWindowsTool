@@ -36,6 +36,15 @@ Rectangle {
         }
     }
 
+    FileDialog {
+        id: aboutImageSelectDialog
+        title: "Select About Image"
+        nameFilters: "Image File (*.png)"
+        onAccepted: {
+            vc.onAboutImageSelectDialogAccepted(aboutImageSelectDialog.selectedFile)
+        }
+    }
+
     ColumnLayout {
         id: column
         anchors.left: parent.left
@@ -100,8 +109,13 @@ Rectangle {
                 contentItem: Text {
                     objectName: "tvSelectApk"
                     text: "Click here select apk"
+                    elide: Text.ElideMiddle
+                    anchors.verticalCenter: parent.verticalCenter
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.WrapAnywhere
+                    maximumLineCount: 1
+                    anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
                 }
 
@@ -124,6 +138,7 @@ Rectangle {
             }
 
             Button {
+                id: button
                 width: 200
                 height: 32
                 anchors.verticalCenter: parent.verticalCenter
@@ -132,10 +147,25 @@ Rectangle {
                     radius: 6
                 }
                 contentItem: Text {
+                    objectName: "tvSelectPic"
                     text: qsTr("Click here select picture")
+                    elide: Text.ElideMiddle
+                    anchors.verticalCenter: parent.verticalCenter
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.WrapAnywhere
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    maximumLineCount: 1
                     color: "white"
+
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        aboutImageSelectDialog.open()
+                    }
                 }
             }
 
@@ -152,6 +182,10 @@ Rectangle {
                 }
                 placeholderTextColor: "#999999"
                 placeholderText: "Url"
+                color: "white"
+                onTextChanged: {
+                    vc.onAboutTextChanged(textField1.text)
+                }
             }
         }
 
@@ -179,8 +213,13 @@ Rectangle {
                 contentItem: Text {
                     objectName: "tvSelectSignatureFile"
                     text: "Click here select signature file"
+                    elide: Text.ElideMiddle
+                    anchors.verticalCenter: parent.verticalCenter
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.WrapAnywhere
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    maximumLineCount: 1
                     color: "white"
                 }
 
@@ -307,32 +346,59 @@ Rectangle {
             }
         }
 
+        Row {
+            id: row4
+            spacing: 12
+            Button {
+                id: button2
+                rightPadding: 24
+                leftPadding: 24
+                contentItem: Text {
+                    text: qsTr("Commit")
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "white"
+                    font.pointSize: 18
 
-        Button {
-            id: button2
-            rightPadding: 24
-            leftPadding: 24
-            contentItem: Text {
-                text: qsTr("Commit")
+                }
+                background: Rectangle {
+                    color: "green"
+                    radius: 6
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        vc.btnClicked()
+                    }
+                }
+            }
+            Text {
+                id: errorText
+                objectName: "errorText"
+                text: ""
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: "white"
-                font.pointSize: 18
-
-            }
-            background: Rectangle {
-                color: "green"
-                radius: 6
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                onClicked: {}
+                font.pointSize: 14
+                color: "red"
             }
         }
 
+        Text {
+            objectName: "processDoneText"
+            text: qsTr("text")
+            color: "green"
+            font.pointSize: 14
+        }
     }
 
 
+    Dialog0001 {
+        id: dialogProcess
+        objectName: "dialogProcess"
+        anchors.fill: parent
+        color: "#7f000000"
+        z: 2
+        visible: false
+    }
 }

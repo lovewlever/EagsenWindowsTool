@@ -16,7 +16,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick Xml)
 qt_standard_project_setup()
 
 qt_add_resources(RESOURCES resources.qrc)
@@ -25,11 +25,19 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/viewclass.h App/viewclass.cpp
     resources.qrc
     ${RESOURCES}
+    App/apk_unpack_and_pack_pkg.h App/apk_unpack_and_pack_pkg.cpp
+    App/about_us_process.h App/about_us_process.cpp
+    App/constants.h
+    App/channel_process.h App/channel_process.cpp
+
 )
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt6::Core Qt6::Xml)
+
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
 		qtquickcontrols2.conf)
+
 
 include(qds)
 
