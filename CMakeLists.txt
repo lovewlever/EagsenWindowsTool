@@ -24,6 +24,7 @@ qt_add_resources(RESOURCES resources.qrc)
 qt_add_executable(${CMAKE_PROJECT_NAME}
     App/viewclass.h App/viewclass.cpp
     resources.qrc
+    logo.rc
     ${RESOURCES}
     App/apk_unpack_and_pack_pkg.h App/apk_unpack_and_pack_pkg.cpp
     App/about_us_process.h App/about_us_process.cpp
