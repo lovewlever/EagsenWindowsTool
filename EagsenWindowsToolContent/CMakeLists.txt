@@ -9,9 +9,9 @@ qt6_add_qml_module(EagsenWindowsToolContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
 	QML_FILES
-		"Screen01.qml"
-		"Dialog0001.qml"
 		"App.qml"
+		"Dialog0001.qml"
+		"Screen01.qml"
 	RESOURCES
 		"images/ic_def_cover.png"
 )

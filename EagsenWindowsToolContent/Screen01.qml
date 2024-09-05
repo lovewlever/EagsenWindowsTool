@@ -387,6 +387,9 @@ Rectangle {
         Text {
             objectName: "processDoneText"
             text: ""
+            wrapMode: Text.WordWrap
+            Layout.fillWidth: true
+            verticalAlignment: Text.AlignTop
             color: "green"
             font.pointSize: 16
         }

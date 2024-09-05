@@ -10,7 +10,10 @@ bool ChannelProcess::processChannel(const QString &floder, const QString &channe
     qDebug() << "解包后的目录：" << floder;
     qDebug() << "渠道码: " << channelCode;
     qDebug() << "渠道经理" << channelmanager;
-    if(channelCode == nullptr || channelCode == "" || channelmanager == nullptr || channelmanager == "") {
+    const auto isChannelCodeNotSet = channelCode == nullptr || channelCode == "";
+    const auto isCnannelManagerNotSet = channelmanager == nullptr || channelmanager == "";
+
+    if(isChannelCodeNotSet && isCnannelManagerNotSet) {
         qDebug() << "都是空的，跳过";
         return false;
     }
@@ -35,10 +38,10 @@ bool ChannelProcess::processChannel(const QString &floder, const QString &channe
         const QDomNamedNodeMap attributes = nodeElement.attributes();
         for(int i=0; i < attributes.count();i++) {
             const QDomNode node = attributes.item(i);
-            if(node.nodeValue() == "eagsen_channel_invite") {
+            if(node.nodeValue() == "eagsen_channel_invite" && !isChannelCodeNotSet) {
                 nodeElement.setAttribute("android:value", channelCode);
             }
-            if(node.nodeValue() == "eagsen_channel_manager") {
+            if(node.nodeValue() == "eagsen_channel_manager" && !isCnannelManagerNotSet) {
                 nodeElement.setAttribute("android:value", channelmanager);
             }
         }

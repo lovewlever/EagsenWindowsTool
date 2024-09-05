@@ -80,15 +80,24 @@ void ViewClass::btnClicked() {
     dialogProcess->setProperty("visible", "true");
     tvProcessDesc->setProperty("text", "Unpacking Apk...");
 
+    // 停止线程 重新
+    if(!this->thread->isFinished()) {
+        this->thread->quit();
+        this->thread->wait();
+    }
+    delete this->thread;
+    delete this->apktool;
+    this->thread = new QThread();
+    this->apktool = new ApkUnpackAndPackPkg();
     this->apktool->moveToThread(this->thread);
 
     connect(this->thread, &QThread::started, this->apktool, [&]() {
         QString outputSignedApkPath{""};
-        QString floder{"E:\\Documents\\AndroidProjects\\Eagsen Auto 3.4 Dev\\Eagsen Auto\\app\\apks\\unpackageapksource"};
-        //this->apktool->unApkPkg(*apkFileInfoPtr, &floder);
-        //this->aboutUsProcess->processAboutUs(floder, this->aboutImagePath, this->aboutClickUrl);
+        QString floder{""};
+        this->apktool->unApkPkg(*apkFileInfoPtr, &floder);
+        this->aboutUsProcess->processAboutUs(floder, this->aboutImagePath, this->aboutClickUrl);
         this->channelProcess->processChannel(floder, this->channelInvite, this->channelManager);
-       // this->apktool->packingApkPkg(floder, this->signatureFilePath, this->signatureKeyAlias, this->signaturePwd, outputSignedApkPath);
+        this->apktool->packingApkPkg(floder, this->signatureFilePath, this->signatureKeyAlias, this->signaturePwd, outputSignedApkPath);
         qDebug() << "处理完成：" << outputSignedApkPath;
         emit this->apktool->finished(outputSignedApkPath);
     });
@@ -165,4 +174,10 @@ void ViewClass::onAboutTextChanged(const QString& url) {
 void ViewClass::onChannelManagerTextChanged(const QString& manager) {
     this->channelManager = manager;
     qDebug() << "onChannelManagerTextChanged" << manager;
+}
+
+void ViewClass::onDialogCancelBtnClick()
+{
+    this->thread->quit();
+    this->thread->wait();
 }

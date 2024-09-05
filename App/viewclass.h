@@ -57,6 +57,7 @@ public slots:
 
     void onChannelInviteTextChanged(const QString& invite);
     void onChannelManagerTextChanged(const QString& manager);
+    void onDialogCancelBtnClick();
 };
 
 #endif // VIEWCLASS_H

@@ -15,9 +15,9 @@ qt6_add_qml_module(EagsenWindowsTool
     RESOURCE_PREFIX "/qt/qml"
 	QML_FILES
 		"EventListModel.qml"
-		"DirectoryFontLoader.qml"
 		"EventListSimulator.qml"
 		"Constants.qml"
+		"DirectoryFontLoader.qml"
 )
 
 
