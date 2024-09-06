@@ -86,8 +86,9 @@ Rectangle {
             id: row
             Label {
                 width: 120
-                text: "APK File:"
+                text: "APK File <span style='color: red;'>*</span> :"
                 color: "white"
+                textFormat: "RichText"
                 anchors.verticalCenter: parent.verticalCenter
             }
             Rectangle {
@@ -128,75 +129,15 @@ Rectangle {
         }
 
         Row {
-            id: row3
-            spacing: 12
-            Label {
-                width: 120
-                text: "About Us"
-                anchors.verticalCenter: parent.verticalCenter
-                color: "white"
-            }
-
-            Button {
-                id: button
-                width: 200
-                height: 32
-                anchors.verticalCenter: parent.verticalCenter
-                background: Rectangle {
-                    color: "blue"
-                    radius: 6
-                }
-                contentItem: Text {
-                    objectName: "tvSelectPic"
-                    text: qsTr("Click here select picture")
-                    elide: Text.ElideMiddle
-                    anchors.verticalCenter: parent.verticalCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    wrapMode: Text.WrapAnywhere
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    maximumLineCount: 1
-                    color: "white"
-
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        aboutImageSelectDialog.open()
-                    }
-                }
-            }
-
-            TextField {
-                id: textField1
-                width: 412
-                height: 35
-                verticalAlignment: Text.AlignVCenter
-                background: Rectangle {
-                    border.color: "blue"
-                    border.width: 2
-                    radius: 8
-                    color: "#232323"
-                }
-                placeholderTextColor: "#999999"
-                placeholderText: "Url"
-                color: "white"
-                onTextChanged: {
-                    vc.onAboutTextChanged(textField1.text)
-                }
-            }
-        }
-
-        Row {
             id: row2
             spacing: 12
 
             Label {
                 width: 120
-                text: "Signature File:"
+                textFormat: "RichText"
+                text: "Signature File <span style='color: red;'>*</span> :"
                 color: "white"
+
                 anchors.verticalCenter: parent.verticalCenter
             }
 
@@ -271,6 +212,81 @@ Rectangle {
                 placeholderTextColor: "#999999"
                 onTextChanged: vc.onPasswordTextChanged(textField3.text)
             }
+        }
+
+
+
+        Row {
+            id: row3
+            spacing: 12
+            Label {
+                width: 120
+                text: "About Us"
+                anchors.verticalCenter: parent.verticalCenter
+                color: "white"
+            }
+            Column {
+                spacing: 4
+                Row {
+                    spacing: 12
+                    Button {
+                        id: button
+                        width: 200
+                        height: 32
+                        anchors.verticalCenter: parent.verticalCenter
+                        background: Rectangle {
+                            color: "blue"
+                            radius: 6
+                        }
+                        contentItem: Text {
+                            objectName: "tvSelectPic"
+                            text: qsTr("Click here select picture")
+                            elide: Text.ElideMiddle
+                            anchors.verticalCenter: parent.verticalCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            wrapMode: Text.WrapAnywhere
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            maximumLineCount: 1
+                            color: "white"
+
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: {
+                                aboutImageSelectDialog.open()
+                            }
+                        }
+                    }
+
+                    TextField {
+                        id: textField1
+                        width: 412
+                        height: 35
+                        verticalAlignment: Text.AlignVCenter
+                        background: Rectangle {
+                            border.color: "blue"
+                            border.width: 2
+                            radius: 8
+                            color: "#232323"
+                        }
+                        placeholderTextColor: "#999999"
+                        placeholderText: "Url"
+                        color: "white"
+                        onTextChanged: {
+                            vc.onAboutTextChanged(textField1.text)
+                        }
+                    }
+                }
+                Label {
+                    text: "This option only supported ZiQi platform"
+                    color: "red"
+                    font.pointSize: 10
+                }
+            }
+
         }
 
         Row {

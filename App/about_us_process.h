@@ -9,6 +9,9 @@
 #include <QJsonObject>
 #include <QDir>
 #include "constants.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QDateTime>
 
 
 class AboutUsProcess : public QObject

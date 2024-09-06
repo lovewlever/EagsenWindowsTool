@@ -93,7 +93,7 @@ void ViewClass::btnClicked() {
 
     connect(this->thread, &QThread::started, this->apktool, [&]() {
         QString outputSignedApkPath{""};
-        // E:\\Documents\\AndroidProjects\\Eagsen Auto 3.4 Dev\\Eagsen Auto\\app\\apks\\unpackageapksource
+        //QString floder{"E:\\Documents\\AndroidProjects\\Eagsen Auto 3.4 Dev\\Eagsen Auto\\app\\apks\\unpackageapksource"};
         QString floder{""};
         this->apktool->unApkPkg(*apkFileInfoPtr, &floder);
         this->aboutUsProcess->processAboutUs(floder, this->aboutImagePath, this->aboutClickUrl);

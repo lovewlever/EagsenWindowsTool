@@ -29,11 +29,19 @@ void AboutUsProcess::processAboutUs(const QString& floder, const QString &imageP
     if(url != nullptr && url != "") {
         emit this->updateLabel("Process About Us Url...");
         QFile configJsonFile{floder + "/assets/" + ABOUT_US_URL_FILE_NAME};
-
-        const auto open = configJsonFile.open(QIODevice::ReadWrite);
+        if(configJsonFile.exists()) {
+            configJsonFile.remove();
+        }
+        const auto open = configJsonFile.open(QIODevice::WriteOnly);
         emit this->updateLabel("Open file " + configJsonFile.fileName() + ": " + (open ? "1" : "0"));
         if(open) {
-            const auto len = configJsonFile.write(url.toUtf8());
+            const auto time = QDateTime::currentMSecsSinceEpoch();
+            QJsonObject json;
+            QJsonDocument jsonDoc;
+            json.insert("url", url);
+            json.insert("timestamp", time);
+            jsonDoc.setObject(json);
+            const auto len = configJsonFile.write(jsonDoc.toJson());
             emit this->updateLabel("Write file " + configJsonFile.fileName() + ": " + QString::number(len));
             qDebug() << "Write file " + configJsonFile.fileName() + ": " + QString::number(len);
             configJsonFile.close();
