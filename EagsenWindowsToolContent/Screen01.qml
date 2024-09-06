@@ -281,7 +281,7 @@ Rectangle {
                     }
                 }
                 Label {
-                    text: "This option only supported ZiQi platform"
+                    text: "This option only supported ZiQi platform\nSystem limitation: The selected image size must be less than 2MB."
                     color: "red"
                     font.pointSize: 10
                 }
