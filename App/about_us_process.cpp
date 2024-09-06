@@ -13,7 +13,14 @@ void AboutUsProcess::processAboutUs(const QString& floder, const QString &imageP
     QFileInfo fInfo{ QUrl(imagePath).toLocalFile() };
     if(fInfo.isFile()) {
         emit this->updateLabel("Process About Us Image...");
-        QFile::copy(fInfo.absoluteFilePath(), QString{floder + "/assets/" + ABOUT_US_IMAGE_FILE_NAME});
+        QString dstFilePath = {floder + "/assets/" + ABOUT_US_IMAGE_FILE_NAME};
+        QFile dstFile{dstFilePath};
+        if(dstFile.exists()) {
+            const auto removeBoo = QFile::remove(dstFilePath);
+            qDebug() << "About image found, remove :" << removeBoo;;
+            emit this->updateLabel(QString{"About image found, remove :"} + (removeBoo ? "1" : "0"));
+        }
+        QFile::copy(fInfo.absoluteFilePath(), dstFilePath);
     } else {
         emit this->updateLabel("About us image is empty, jump");
         qDebug() << "关于我们的图片为空，跳过";
