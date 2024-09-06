@@ -74,7 +74,7 @@ Rectangle {
                 width: implicitWidth
                 height: implicitHeight
                 color: "#B7B7B7"
-                text: qsTr("Eagsen APK process tool")
+                text: qsTr("Eagsen APK process tool v0.0.1")
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: 24
                 font.family: Constants.font.family

@@ -33,7 +33,7 @@ Rectangle {
             }
 
             Text {
-                text: qsTr("正在处理... 大概需要5-10分钟")
+                text: qsTr("Processing... 5-10 minutes")
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "white"
                 font.pointSize: 13
@@ -48,7 +48,7 @@ Rectangle {
                 id: tvProcessDesc
                 width: 260
                 objectName: "tvProcessDesc"
-                text: qsTr("正在解包...")
+                text: qsTr("Unpacking...")
                 elide: Text.ElideMiddle
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
