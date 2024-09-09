@@ -69,8 +69,10 @@ bool ApkUnpackAndPackPkg::packingApkPkg(const QString& floder, const QString &jk
 
     //签名///////////////////////////////////////////////////////////////////////////////////////
     // Tools/build-tools/apksigner.bat sign -verbose --ks .\668.keystore --out eagsen_signed.apk .\eagsen_unsign_aligned.apk
+    // Tools/build-tools/apksigner.bat sign -verbose --v1-signing-enabled true --v2-signing-enabled true --ks .\668.keystore --ks-key-alias platform  --ks-pass pass:123456 --out eagsen_signed.apk .\eagsen_unsign_aligned.apk
+    QProcess process2;
     QString signedApkPath{floder + "/eagsen_signed.apk"};
-    QString signCmd{"Tools/build-tools/apksigner.bat sign -verbose --v1-signing-enabled true --v2-signing-enabled true --ks "};
+    QString signCmd{R"("Tools/jbr/bin/java.exe" -jar "Tools/build-tools/lib/apksigner.jar" sign -verbose --v1-signing-enabled true --v2-signing-enabled true --ks )"};
     signCmd.append("\"").append(QUrl(jks).toLocalFile()).append("\"")
         .append(" --ks-key-alias ").append(ali)
         .append(" --ks-pass pass:").append(pwd)
@@ -78,10 +80,10 @@ bool ApkUnpackAndPackPkg::packingApkPkg(const QString& floder, const QString &jk
         .append("\"").append(signedApkPath).append("\" ")
         .append("\"").append(alignedApkPath).append("\"");
     qDebug() << "签名: " << signCmd;
-    process.startCommand(signCmd);
-    process.waitForFinished(600000);
-    output = process.readAllStandardOutput();
-    error = process.readAllStandardError();
+    process2.startCommand(signCmd);
+    process2.waitForFinished(600000);
+    output = process2.readAllStandardOutput();
+    error = process2.readAllStandardError();
     qDebug() << "\n签名-output: " << output << "\n签名-error" << error;
 
     qDebug() << "打包：------------------------ END";
