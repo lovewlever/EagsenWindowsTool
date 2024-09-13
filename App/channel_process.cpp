@@ -13,10 +13,10 @@ bool ChannelProcess::processChannel(const QString &floder, const QString &channe
     const auto isChannelCodeNotSet = channelCode == nullptr || channelCode == "";
     const auto isCnannelManagerNotSet = channelmanager == nullptr || channelmanager == "";
 
-    if(isChannelCodeNotSet && isCnannelManagerNotSet) {
-        qDebug() << "都是空的，跳过";
-        return false;
-    }
+    // if(isChannelCodeNotSet && isCnannelManagerNotSet) {
+    //     qDebug() << "都是空的，跳过";
+    //     return false;
+    // }
 
     QFile file{floder + "/AndroidManifest.xml"};
     if(!file.exists()) {
@@ -38,10 +38,10 @@ bool ChannelProcess::processChannel(const QString &floder, const QString &channe
         const QDomNamedNodeMap attributes = nodeElement.attributes();
         for(int i=0; i < attributes.count();i++) {
             const QDomNode node = attributes.item(i);
-            if(node.nodeValue() == "eagsen_channel_invite" && !isChannelCodeNotSet) {
+            if(node.nodeValue() == "eagsen_channel_invite" /*&& !isChannelCodeNotSet*/) {
                 nodeElement.setAttribute("android:value", channelCode);
             }
-            if(node.nodeValue() == "eagsen_channel_manager" && !isCnannelManagerNotSet) {
+            if(node.nodeValue() == "eagsen_channel_manager" /*&& !isCnannelManagerNotSet*/) {
                 nodeElement.setAttribute("android:value", channelmanager);
             }
         }
